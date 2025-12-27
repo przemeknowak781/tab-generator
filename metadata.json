@@ -1,0 +1,5 @@
+{
+  "name": "GuitarTabGen PL",
+  "description": "Aplikacja do konwersji plików MIDI na nuty i tabulatury gitarowe z analizą AI.",
+  "requestFramePermissions": []
+}

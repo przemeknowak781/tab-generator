@@ -1,0 +1,47 @@
+# TODO: Implementacja Optymalizatora Konwersji MIDI na Tabulaturę (GTG)
+
+Ten dokument opisuje plan refaktoryzacji logiki parsowania MIDI w celu uzyskania biomechanicznie poprawnej tabulatury gitarowej przy użyciu Programowania Dynamicznego (Algorytm Viterbiego).
+
+## Faza 1: Pre-processing i Analiza Sygnału MIDI
+- [ ] **Ingestia danych MIDI:** Zaimplementować parser (np. `mido` lub `pretty_midi`) pobierający zdarzenia `Note_On` / `Note_Off`.
+- [ ] **Kwantyzacja rytmiczna:** Dodać funkcję wyrównującą starty nut do najbliższej siatki (np. 1/32), aby wyeliminować błędy "human timing" przy analizie współbrzmień.
+- [ ] **Segmentacja wertykalna (Slice Generation):** Podzielić strumień MIDI na "okna czasowe" (slices). Każde okno zawiera nuty brzmiące jednocześnie.
+- [ ] **Separacja głosów (Voice Separation):**
+    - [ ] Zaimplementować prosty algorytm klastrowania (np. Skyline) do rozdzielenia linii basu od melodii w przypadku gęstej polifonii.
+    - [ ] Oflagować akordy przekraczające 6 dźwięków (fizyczny limit gitary).
+
+## Faza 2: Konstrukcja Przestrzeni Stanów (Graph Building)
+- [ ] **Definicja stroju (Tuning Configuration):** Utworzyć konfigurowalną mapę stroju (domyślnie: E2, A2, D3, G3, B3, E4).
+- [ ] **Mapowanie Pitch-to-Fret:**
+    - [ ] Napisać funkcję zwracającą listę wszystkich krotek `(struna, próg)` dla danego MIDI pitch.
+    - [ ] **Constraint:** Ograniczyć zakres progów (np. 0-22).
+- [ ] **Generowanie Węzłów Grafu:** Dla każdego "okna czasowego" utworzyć warstwę grafu zawierającą wszystkie możliwe kombinacje palcowania dla nut w tym oknie.
+
+## Faza 3: Funkcja Kosztu i Model Biomechaniczny
+- [ ] **Inicjalizacja Wag:** Zdefiniować stałe wagi dla składowych kosztu (np. `W_DIST=1.0`, `W_STRETCH=1.5`, `W_TIMBRE=0.8`).
+- [ ] **Implementacja `calculate_transition_cost(state_A, state_B)`:**
+    - [ ] **Koszt dystansu (`C_dist`):** Obliczyć średnie przesunięcie dłoni wzdłuż gryfu.
+    - [ ] **Koszt rozciągnięcia (`C_stretch`):**
+        - [ ] Obliczyć rozpiętość progów (fret span) w ramach `state_B`.
+        - [ ] Nałożyć karę wykładniczą, jeśli `span > 4` (lub `5` przy wysokich pozycjach).
+    - [ ] **Koszt mechaniczny (`C_mech`):** Dodać karę za "skakanie" po strunach (np. przejście ze struny 6 na 1).
+    - [ ] **Bonus "Pustej Struny":** Obniżyć koszt, jeśli wykorzystywana jest pusta struna (dla stylów folk/rock) lub podwyższyć (dla jazzu - brak kontroli tłumienia).
+- [ ] **Heurystyka "Lazy Finger":** Zaimplementować logikę preferującą pozostanie w tej samej pozycji pozycyjnej (Position anchoring).
+
+## Faza 4: Algorytm Optymalizacyjny (Core Logic)
+- [ ] **Algorytm Viterbiego:**
+    - [ ] Zaimplementować przejście "w przód" (forward pass), obliczając skumulowany koszt dojścia do każdego węzła.
+    - [ ] Zapisać wskaźniki wsteczne (backpointers) do najlepszego poprzednika.
+- [ ] **Backtracking:** Odtworzyć optymalną ścieżkę od ostatniego zdarzenia do pierwszego, wybierając sekwencję o minimalnym koszcie globalnym.
+
+## Faza 5: Post-processing i Notacja Muzyczna
+- [ ] **Wykrywanie Tonacji (Key Detection):**
+    - [ ] Zanalizować histogram klas nut (pitch classes) w utworze.
+    - [ ] Ustalić tonację w celu poprawnego mapowania enharmonicznego (np. czy wyświetlić D# czy Eb).
+- [ ] **Walidacja Czasu Trwania:** Upewnić się, że wybrana tabulatura pozwala na wybrzmienie nut zgodnie z ich długością (unikanie przedwczesnego tłumienia przez użycie tej samej struny).
+- [ ] **Formatowanie Wyjściowe:** Wygenerować strukturę danych gotową do renderowania (np. MusicXML lub JSON dla frontendu).
+
+## Testy i Walidacja
+- [ ] **Test "Chromatyczny":** Sprawdzić, czy algorytm wybiera logiczne palcowanie dla skali chromatycznej (np. 4 palce na pozycji).
+- [ ] **Test "Skoku Oktawowego":** Zweryfikować, czy algorytm poprawnie zmienia struny zamiast skakać o 12 progów na tej samej strunie.
+- [ ] **Unit Test:** Porównać wygenerowany tab z "referencyjnym" tabem zagranym przez człowieka (Ground Truth).
