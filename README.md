@@ -1,8 +1,8 @@
-# 🎸 GuitarTabGen
+# GuitarTabGen
 
-**Inteligentny generator tabulatur gitarowych z plików MIDI**
+**Smart Guitar Tablature Generator from MIDI Files**
 
-Zaawansowana aplikacja webowa konwertująca pliki MIDI na profesjonalne tabulatury gitarowe z wykorzystaniem algorytmów biomechanicznych inspirowanych projektem [tuttut](https://github.com/mdmccarley89/tuttut).
+Advanced web application converting MIDI files into professional guitar tablaturates using biomechanical algorithms inspired by the [tuttut](https://github.com/mdmccarley89/tuttut) project.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
@@ -11,58 +11,58 @@ Zaawansowana aplikacja webowa konwertująca pliki MIDI na profesjonalne tabulatu
 
 ---
 
-## ✨ Funkcje
+## Features
 
-### 🎵 Generowanie Tabulatur
-- **Automatyczna konwersja MIDI → Tab** z inteligentnym rozkładem nut na gryf
-- **Biomechaniczny optimizer** minimalizujący ruch ręki i rozciągnięcia palców
-- **Algorytm Viterbi** znajdujący optymalną ścieżkę palcowania dla całej kompozycji
-- **Obsługa akordów** z prawidłowym rozpoznawaniem czterodźwięków i polifonii
+### Tablature Generation
+- **Automatic MIDI to Tab conversion** with smart note distribution on the fretboard
+- **Biomechanical optimizer** minimizing hand movement and finger stretching
+- **Viterbi Algorithm** finding the optimal fingering path for the entire composition
+- **Chord support** with correct recognition of tetra-chords and polyphony
 
-### 🎼 Notacja Muzyczna
-- **Zapis nutowy i tabulatura** wyświetlane jednocześnie
-- **Automatyczne grupowanie w takty** z poprawnym metrum
-- **Obsługa znaków chromatycznych** (♯/♭) z automatycznym wyborem systemu
-- **Balki dla ósemek/szesnastek** grupowane według rytmu
-- **Responsive layout** dostosowujący się do rozmiaru ekranu
+### Musical Notation
+- **Standard notation and tablature** displayed simultaneously
+- **Automatic grouping into measures** with correct time signature
+- **Chromatic sign support** (sharps/flats) with automatic system selection
+- **Beams for 8th/16th notes** grouped according to rhythm
+- **Responsive layout** adapting to screen size
 
-### 🎹 Odtwarzanie
-- **Playback audio** z podświetlaniem aktualnie granej nuty
-- **Synchronizacja wizualna** nuty/tab + audio w czasie rzeczywistym
-- **Zoptymalizowany rendering** bez lagów i zacinania się
-- **Kontrolki playback** (Play/Pause/Stop) z paskiem postępu
+### Playback
+- **Audio playback** with highlighting of the currently played note
+- **Visual synchronization** of note/tab + audio in real-time
+- **Optimized rendering** without lags or stuttering
+- **Playback controls** (Play/Pause/Stop) with progress bar
 
-### 🎛️ Personalizacja
-- **Obsługa różnych strojów** (Standard, Drop D, Drop C, Open D, DADGAD)
-- **Tryb ciemny/jasny** z płynnym przejściem
-- **Wybór ścieżki MIDI** dla plików wielokanałowych
-- **Plik demo** (Lully) do natychmiastowego przetestowania
+### Customization
+- **Support for different tunings** (Standard, Drop D, Drop C, Open D, DADGAD)
+- **Dark/Light mode** with smooth transition
+- **MIDI track selection** for multi-channel files
+- **Demo file** (Lully) for immediate testing
 
 ---
 
-## 🚀 Instalacja i Uruchomienie
+## Installation and Setup
 
-### Wymagania
+### Requirements
 - Node.js 16+ 
-- npm lub yarn
+- npm or yarn
 
-### Szybki start
+### Quick Start
 
 ```bash
-# Klonowanie repozytorium
+# Clone the repository
 git clone https://github.com/przemeknowak781/tab-generator.git
 cd tab-generator
 
-# Instalacja zależności
+# Install dependencies
 npm install
 
-# Uruchomienie serwera deweloperskiego
+# Start development server
 npm run dev
 ```
 
-Aplikacja będzie dostępna pod adresem `http://localhost:5173`
+The application will be available at `http://localhost:5173`
 
-### Build produkcyjny
+### Production Build
 
 ```bash
 npm run build
@@ -71,102 +71,102 @@ npm run preview
 
 ---
 
-## 🧠 Technologia
+## Technology
 
-### Stack Technologiczny
-- **React 18** + **TypeScript** - nowoczesny, typowany interfejs użytkownika
-- **Vite** - błyskawiczny bundler i dev server
-- **VexFlow** - renderowanie profesjonalnej notacji muzycznej
-- **TailwindCSS** - stylowanie utility-first
-- **Web Audio API** - natywny playback audio w przeglądarce
+### Tech Stack
+- **React 18** + **TypeScript** - modern, typed user interface
+- **Vite** - lightning-fast bundler and dev server
+- **VexFlow** - rendering professional musical notation
+- **TailwindCSS** - utility-first styling
+- **Web Audio API** - native browser audio playback
 
-### Algorytmy Tablaturowe
+### Tablature Algorithms
 
-Projekt wykorzystuje **biomechaniczną optymalizację** inspirowaną badaniami nad ergonomią gry na gitarze:
+The project uses **biomechanical optimization** inspired by research on guitar ergonomics:
 
-#### Algorytm Viterbi (Dynamic Programming)
-- Znajduje **globalnie optymalną ścieżkę** palcowania dla całej kompozycji
-- Uwzględnia **kontekst** - przejścia między akordami są ważniejsze niż pojedyncze pozycje
+#### Viterbi Algorithm (Dynamic Programming)
+- Finds the **globally optimal fingering path** for the entire composition
+- Considers **context** - transitions between chords are more important than single positions
 
-#### Funkcja Kosztu "Easiness" (z projektu *tuttut*)
+#### "Easiness" Cost Function (from project *tuttut*)
 ```
 Cost = dHeight + log(1 + height) + log(1 + stretch) + log(1 + changedStrings)
 ```
 
-**Parametry:**
-- `dHeight` - odległość ruchu ręki w pionie (zmiana progu)
-- `height` - pozycja na gryfie (preferuje niższe progi)
-- `stretch` - rozpiętość ręki (max - min próg)
-- `changedStrings` - liczba strun, które zmieniły status
+**Parameters:**
+- `dHeight` - vertical hand movement distance (fret change)
+- `height` - position on the fretboard (prefers lower frets)
+- `stretch` - hand span (max - min fret)
+- `changedStrings` - number of strings that changed status
 
-**Bonusy:**
-- 🎯 **Struny otwarte** (+0.8) - preferuje "cowboy chords"
-- 🎵 **Sustain** (+0.5) - nagradza trzymanie tej samej pozycji
-- 🎼 **Ciągłość melodyczna** (+0.3) - preferuje grę kolejnych nut na tej samej strunie
-
----
-
-## 📖 Jak używać?
-
-### 1️⃣ Wczytaj plik MIDI
-- Kliknij **"Wybierz plik MIDI"** lub przeciągnij plik na stronę
-- Obsługiwane formaty: `.mid`, `.midi`
-
-### 2️⃣ Wybierz ścieżkę
-- Jeśli plik zawiera wiele ścieżek, wybierz tę z melodią/tabulaturą
-- Aplikacja automatycznie rozpozna instrumenty i nuty
-
-### 3️⃣ Dostosuj strój (opcjonalnie)
-- Wybierz strój gitary z listy rozwijanej
-- Tabulatura zostanie automatycznie przeliczona
-
-### 4️⃣ Odtwórz i ciesz się!
-- Kliknij **Play** aby usłyszeć kompozycję
-- Aktualnie graną nutę widać na czerwono
-- Eksportuj lub drukuj tabulaturę (wkrótce)
+**Bonuses:**
+- **Open strings** (+0.8) - prefers "cowboy chords"
+- **Sustain** (+0.5) - rewards holding the same position
+- **Melodic continuity** (+0.3) - prefers playing consecutive notes on the same string
 
 ---
 
-## 🎯 Roadmap
+## How to use?
 
-- [ ] Eksport do PDF/PNG
-- [ ] Obsługa technik gitarowych (hammer-on, pull-off, bending, slide)
-- [ ] Rozpoznawanie pozycji barré
-- [ ] Edytor tabulatur (ręczne poprawki)
-- [ ] Wsparcie dla gitary basowej (4/5/6 strun)
-- [ ] Integracja z GitHub Pages (live demo)
+### 1. Load MIDI file
+- Click **"Select MIDI file"** or drag and drop a file onto the page
+- Supported formats: `.mid`, `.midi`
 
----
+### 2. Select track
+- If the file contains multiple tracks, select the one with the melody/tablature
+- The application will automatically recognize instruments and notes
 
-## 🤝 Wkład w projekt
+### 3. Adjust tuning (optional)
+- Select guitar tuning from the dropdown list
+- Tablature will be automatically recalculated
 
-Pull requesty są mile widziane! Dla większych zmian, proszę najpierw otworzyć issue aby przedyskutować proponowane zmiany.
-
-### Jak zgłosić bug?
-1. Sprawdź czy bug nie został już zgłoszony w Issues
-2. Stwórz nowy issue z:
-   - Opisem problemu
-   - Krokami do reprodukcji
-   - Plikiem MIDI (jeśli dotyczy)
-   - Zrzutem ekranu
+### 4. Play and enjoy!
+- Click **Play** to hear the composition
+- The currently played note is highlighted in red
+- Export or print tablature (soon)
 
 ---
 
-## 📚 Inspiracje i Referencje
+## Roadmap
 
-- **[tuttut](https://github.com/mdmccarley89/tuttut)** - Biomechaniczny optimizer palcowania (Python)
-- **[VexFlow](https://www.vexflow.com/)** - Biblioteka do renderowania notacji muzycznej
-- **[@tonejs/midi](https://github.com/Tonejs/Midi)** - Parser plików MIDI
-
----
-
-## 📄 Licencja
-
-MIT License - zobacz plik [LICENSE](LICENSE) po szczegóły.
+- [ ] Export to PDF/PNG
+- [ ] Support for guitar techniques (hammer-on, pull-off, bending, slide)
+- [ ] Barre position recognition
+- [ ] Tablature editor (manual corrections)
+- [ ] Bass guitar support (4/5/6 strings)
+- [ ] GitHub Pages integration (live demo)
 
 ---
 
-## 👨‍💻 Autor
+## Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
+
+### How to report a bug?
+1. Check if the bug hasn't been reported in Issues already
+2. Create a new issue with:
+   - Problem description
+   - Steps to reproduce
+   - MIDI file (if applicable)
+   - Screenshot
+
+---
+
+## Inspirations and References
+
+- **[tuttut](https://github.com/mdmccarley89/tuttut)** - Biomechanical fingering optimizer (Python)
+- **[VexFlow](https://www.vexflow.com/)** - Library for rendering musical notation
+- **[@tonejs/midi](https://github.com/Tonejs/Midi)** - MIDI file parser
+
+---
+
+## License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Author
 
 **Przemysław Nowak**
 
@@ -175,5 +175,5 @@ MIT License - zobacz plik [LICENSE](LICENSE) po szczegóły.
 ---
 
 <div align="center">
-  <strong>Zamień MIDI w piękne tabulatury! 🎸</strong>
+  <strong>Turn MIDI into beautiful tablatures!</strong>
 </div>
