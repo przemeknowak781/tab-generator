@@ -154,7 +154,7 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ## Inspirations and References
 
-- **[tuttut](https://github.com/mdmccarley89/tuttut)** - Biomechanical fingering optimizer (Python)
+- **[tuttut](https://github.com/natecdr/tuttut)** - Biomechanical fingering optimizer (Python)
 - **[VexFlow](https://www.vexflow.com/)** - Library for rendering musical notation
 - **[@tonejs/midi](https://github.com/Tonejs/Midi)** - MIDI file parser
 
